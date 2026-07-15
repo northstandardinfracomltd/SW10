@@ -5,12 +5,26 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
-    base: './',
+    base: '/',
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),
       },
+    },
+    build: {
+      rollupOptions: {
+        input: {
+          main: path.resolve(__dirname, 'index.html'),
+          ibiza: path.resolve(__dirname, 'ibiza/index.html'),
+          mallorca: path.resolve(__dirname, 'mallorca/index.html'),
+          monaco: path.resolve(__dirname, 'monaco/index.html'),
+          malta: path.resolve(__dirname, 'malta/index.html'),
+          zurich: path.resolve(__dirname, 'zurich/index.html'),
+          london: path.resolve(__dirname, 'london/index.html'),
+          megeve: path.resolve(__dirname, 'megeve/index.html'),
+        }
+      }
     },
     server: {
       // HMR is disabled in AI Studio via DISABLE_HMR env var.
