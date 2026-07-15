@@ -1,12 +1,24 @@
 import { ArrowRight, Plane, Shield, Instagram } from 'lucide-react';
-import { TranslationContent } from '../types';
+import { TranslationContent, Language } from '../types';
 import { motion } from 'motion/react';
 
 interface HeroProps {
   t: TranslationContent;
+  seoCity?: string;
+  currentLang: Language;
 }
 
-export default function Hero({ t }: HeroProps) {
+export const cityNames: Record<string, Record<Language, string>> = {
+  ibiza: { en: "Ibiza", fr: "Ibiza", de: "Ibiza", nl: "Ibiza", es: "Ibiza" },
+  mallorca: { en: "Mallorca", fr: "Majorque", de: "Mallorca", nl: "Mallorca", es: "Mallorca" },
+  monaco: { en: "Monaco", fr: "Monaco", de: "Monaco", nl: "Monaco", es: "Mónaco" },
+  malta: { en: "Malta", fr: "Malte", de: "Malta", nl: "Malta", es: "Malta" },
+  zurich: { en: "Zurich", fr: "Zurich", de: "Zürich", nl: "Zürich", es: "Zúrich" },
+  london: { en: "London", fr: "Londres", de: "London", nl: "Londen", es: "Londres" },
+  megeve: { en: "Megeve", fr: "Megève", de: "Megève", nl: "Megève", es: "Megève" }
+};
+
+export default function Hero({ t, seoCity, currentLang }: HeroProps) {
   const scrollToContact = () => {
     const contactSection = document.getElementById('contact');
     if (contactSection) {
@@ -39,6 +51,23 @@ export default function Hero({ t }: HeroProps) {
       return "La elección de familias, atletas y artistas desde 2003";
     }
     return "The choice of families, athletes, and artists since 2003";
+  };
+
+  const getHeroTitle = () => {
+    if (!seoCity) return t.heroTitle;
+    const cityName = cityNames[seoCity]?.[currentLang] || cityNames[seoCity]?.en || seoCity;
+    const upperCity = cityName.toUpperCase();
+    
+    if (currentLang === 'fr') {
+      return `${upperCity} - HELICOPTER & PRIVATE JET CHARTER`;
+    } else if (currentLang === 'de') {
+      return `${upperCity} HUBSCHRAUBER & PRIVATJET CHARTER`;
+    } else if (currentLang === 'nl') {
+      return `${upperCity} HELIKOPTER & PRIVÉJET CHARTER`;
+    } else if (currentLang === 'es') {
+      return `${upperCity} CHÁRTER DE HELICÓPTEROS Y JETS PRIVADOS`;
+    }
+    return `${upperCity} HELICOPTER & PRIVATE JET CHARTER`;
   };
 
   return (
@@ -87,7 +116,7 @@ export default function Hero({ t }: HeroProps) {
             className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-black tracking-tight leading-[1.1]"
             id="hero-heading"
           >
-            {t.heroTitle}
+            {getHeroTitle()}
           </motion.h1>
 
           {/* Subtitle */}

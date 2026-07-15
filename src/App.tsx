@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Language } from './types';
 import { translations } from './translations';
 import Header from './components/Header';
-import Hero from './components/Hero';
+import Hero, { cityNames } from './components/Hero';
 import About from './components/About';
 import Bases from './components/Bases';
 import Fleet from './components/Fleet';
@@ -11,6 +11,22 @@ import UseCases from './components/UseCases';
 import ContactForm from './components/ContactForm';
 import Experiences from './components/Experiences';
 import Footer from './components/Footer';
+
+const getSeoCity = (): string => {
+  try {
+    const cleanPath = window.location.pathname.toLowerCase().replace(/\/$/, "");
+    if (cleanPath.endsWith("/ibiza")) return "ibiza";
+    if (cleanPath.endsWith("/mallorca")) return "mallorca";
+    if (cleanPath.endsWith("/monaco")) return "monaco";
+    if (cleanPath.endsWith("/malta")) return "malta";
+    if (cleanPath.endsWith("/zurich")) return "zurich";
+    if (cleanPath.endsWith("/london")) return "london";
+    if (cleanPath.endsWith("/megeve")) return "megeve";
+  } catch (e) {
+    console.warn("Failed to parse pathname:", e);
+  }
+  return "";
+};
 
 export default function App() {
   // Default to English ('en') while offering premium instant translations for FR, DE, NL, ES.
@@ -28,6 +44,15 @@ export default function App() {
     return 'en';
   });
   const [selectedAircraft, setSelectedAircraft] = useState<string>('');
+  const [seoCity, setSeoCity] = useState<string>(getSeoCity);
+
+  useEffect(() => {
+    const handleLocationChange = () => {
+      setSeoCity(getSeoCity());
+    };
+    window.addEventListener('popstate', handleLocationChange);
+    return () => window.removeEventListener('popstate', handleLocationChange);
+  }, []);
 
   useEffect(() => {
     try {
@@ -64,9 +89,39 @@ export default function App() {
       };
 
       const currentMeta = seoMeta[currentLang] || seoMeta.en;
+      let finalTitle = currentMeta.title;
+      let finalDescription = currentMeta.description;
+      let finalKeywords = currentMeta.keywords;
+
+      if (seoCity) {
+        const cityName = cityNames[seoCity]?.[currentLang] || cityNames[seoCity]?.en || seoCity;
+        const upperCity = cityName.toUpperCase();
+
+        if (currentLang === 'fr') {
+          finalTitle = `FlyPerceval | ${upperCity} - HELICOPTER & PRIVATE JET CHARTER`;
+          finalDescription = `Réservez votre vol en hélicoptère ou jet privé à ${cityName} avec FlyPerceval. Opérateur direct depuis 2003 au meilleur tarif.`;
+          finalKeywords = `helicoptere ${cityName.toLowerCase()}, jet prive ${cityName.toLowerCase()}, charter ${cityName.toLowerCase()}, vol prive ${cityName.toLowerCase()}`;
+        } else if (currentLang === 'de') {
+          finalTitle = `FlyPerceval | ${upperCity} HUBSCHRAUBER & PRIVATJET CHARTER`;
+          finalDescription = `Buchen Sie Ihren Hubschrauber- oder Privatjetflug in ${cityName} mit FlyPerceval. Direkter Betreiber seit 2003 zum besten Preis.`;
+          finalKeywords = `hubschrauber ${cityName.toLowerCase()}, privatjet ${cityName.toLowerCase()}, charter ${cityName.toLowerCase()}, flug ${cityName.toLowerCase()}`;
+        } else if (currentLang === 'nl') {
+          finalTitle = `FlyPerceval | ${upperCity} HELIKOPTER & PRIVÉJET CHARTER`;
+          finalDescription = `Boek uw helikopter- of privéjetvlucht naar of van ${cityName} bij FlyPerceval. Directe operator sinds 2003 voor de scherpste tarieven.`;
+          finalKeywords = `helikopter ${cityName.toLowerCase()}, privejet ${cityName.toLowerCase()}, charter ${cityName.toLowerCase()}, deksel ${cityName.toLowerCase()}`;
+        } else if (currentLang === 'es') {
+          finalTitle = `FlyPerceval | ${upperCity} CHÁRTER DE HELICÓPTEROS Y JETS PRIVADOS`;
+          finalDescription = `Reserve su helicóptero o jet privado en ${cityName} con FlyPerceval. Operador directo desde 2003 con los mejores precios garantizados.`;
+          finalKeywords = `helicoptero ${cityName.toLowerCase()}, jet privado ${cityName.toLowerCase()}, charter ${cityName.toLowerCase()}, vuelo ${cityName.toLowerCase()}`;
+        } else {
+          finalTitle = `FlyPerceval | ${upperCity} HELICOPTER & PRIVATE JET CHARTER`;
+          finalDescription = `Book your bespoke helicopter or private jet charter flight in ${cityName} with FlyPerceval. Direct operator since 2003 with unmatched direct pricing.`;
+          finalKeywords = `helicopter ${cityName.toLowerCase()}, jet charter ${cityName.toLowerCase()}, private jet ${cityName.toLowerCase()}, ${cityName.toLowerCase()} charter`;
+        }
+      }
 
       // 1. Set document title
-      document.title = currentMeta.title;
+      document.title = finalTitle;
 
       // 2. Set meta description
       let descMeta = document.querySelector('meta[name="description"]');
@@ -75,7 +130,7 @@ export default function App() {
         descMeta.setAttribute('name', 'description');
         document.head.appendChild(descMeta);
       }
-      descMeta.setAttribute('content', currentMeta.description);
+      descMeta.setAttribute('content', finalDescription);
 
       // 3. Set meta keywords
       let keywordsMeta = document.querySelector('meta[name="keywords"]');
@@ -84,18 +139,18 @@ export default function App() {
         keywordsMeta.setAttribute('name', 'keywords');
         document.head.appendChild(keywordsMeta);
       }
-      keywordsMeta.setAttribute('content', currentMeta.keywords);
+      keywordsMeta.setAttribute('content', finalKeywords);
 
       // 4. Update Open Graph titles for social / messenger snippet crawlers
       const ogTitle = document.querySelector('meta[property="og:title"]');
-      if (ogTitle) ogTitle.setAttribute('content', currentMeta.title);
+      if (ogTitle) ogTitle.setAttribute('content', finalTitle);
 
       const ogDesc = document.querySelector('meta[property="og:description"]');
-      if (ogDesc) ogDesc.setAttribute('content', currentMeta.description);
+      if (ogDesc) ogDesc.setAttribute('content', finalDescription);
     } catch (error) {
       console.warn("SEO head updates deferred:", error);
     }
-  }, [currentLang]);
+  }, [currentLang, seoCity]);
 
   const t = translations[currentLang] || translations.fr;
 
@@ -144,7 +199,7 @@ export default function App() {
       <main id="main-content">
         
         {/* Hero Banner with target SEO keywords */}
-        <Hero t={t} />
+        <Hero t={t} seoCity={seoCity} currentLang={currentLang} />
 
         {/* Company legacy since 2003 & Direct operator pricing benefit */}
         <About t={t} />
