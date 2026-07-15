@@ -15,8 +15,142 @@ export default function Safety({ t }: SafetyProps) {
   const titlePart = t.safetyTwoPilots.split(':')[0].trim();
   const descPart = t.safetyTwoPilots.substring(t.safetyTwoPilots.indexOf(':') + 1).trim();
 
+  const crewFeatures = (() => {
+    if (isFr) {
+      return [
+        {
+          title: "Minimum 3 000 Heures de Vol",
+          desc: "Nos pilotes sont des commandants vétérans chevronnés, spécialisés dans les vols privés et transferts d'affaires haut de gamme."
+        },
+        {
+          title: "Évaluations régulières sur simulateur",
+          desc: "Contrôles récurrents sur simulateur multi-moteurs et par météo difficile deux fois par an."
+        },
+        {
+          title: "Experts des espaces aériens locaux",
+          desc: "Connaissance approfondie des vecteurs d'approche spécifiques pour l'héliport de Monaco Fontvieille, Malte, Gozo et les Baléares."
+        },
+        {
+          title: "Maintenance d'Élite & Exigence Zéro Risque",
+          desc: "FlyPerceval applique les plus grands soins et les exigences de maintenance les plus strictes. Aucun risque n'est pris : la redondance et l'anticipation passent d'abord."
+        }
+      ];
+    }
+    if (isDe) {
+      return [
+        {
+          title: "Mindestens 3.000 Flugstunden",
+          desc: "Unsere Piloten sind erfahrene Kapitäne mit umfassender Erfahrung bei erstklassigen Executive-Transfers."
+        },
+        {
+          title: "Regelmäßige Simulatorprüfungen",
+          desc: "Wiederkehrende Prüfungen auf mehrmotorigen Simulatoren und bei schlechtem Wetter zweimal pro Jahr."
+        },
+        {
+          title: "Experten für den lokalen Luftraum",
+          desc: "Umfassende Kenntnis der spezifischen Anflugvektoren für Monaco Helipad Fontvieille, Malta, Gozo und die Balearen."
+        },
+        {
+          title: "Erstklassige Wartung & Null-Risiko-Politik",
+          desc: "FlyPerceval wendet größte Sorgfalt und strengste Wartungsanforderungen an. Es werden keine Risiken eingegangen – Redundanz und Antizipation stehen an erster Stelle."
+        }
+      ];
+    }
+    if (isNl) {
+      return [
+        {
+          title: "Minimaal 3.000 Vlieguren",
+          desc: "Onze piloten zijn ervaren gezagvoerders met uitgebreide ervaring in luxe zakelijke transfers."
+        },
+        {
+          title: "Regelmatige evaluaties in simulatoren",
+          desc: "Tweejaarlijkse check-ups op simulatoren voor meermotorige vluchten en slechte weersomstandigheden."
+        },
+        {
+          title: "Experten in lokale luchtruimen",
+          desc: "Uitgebreide kennis van specifieke naderingsvectoren voor Monaco Helipad Fontvieille, Malta, Gozo en de Balearen."
+        },
+        {
+          title: "Uiterste Onderhoudszorg & Geen Risico",
+          desc: "FlyPerceval hanteert de grootste zorg en strengste onderhoudseisen. Er worden geen risico's genomen – redundantie en anticipatie zijn onze absolute prioriteit."
+        }
+      ];
+    }
+    if (isEs) {
+      return [
+        {
+          title: "Mínimo 3.000 Horas de Vuelo",
+          desc: "Nuestros pilotos son capitanes veteranos con amplia experiencia en traslados corporativos de alta gama."
+        },
+        {
+          title: "Evaluaciones frecuentes en simulador",
+          desc: "Controles recurrentes en simulador de vuelo multimotor y con clima adverso dos veces al año."
+        },
+        {
+          title: "Expertos en espacio aéreo local",
+          desc: "Conocimiento profundo de vectores de aproximación específicos para el helipuerto de Mónaco Fontvieille, Malta, Gozo y las Baleares."
+        },
+        {
+          title: "Mantenimiento de Élite y Riesgo Cero",
+          desc: "FlyPerceval aplica el máximo cuidado y las exigencias de mantenimiento más estrictas. No se corre ningún riesgo: la redundancia y la anticipación son nuestra prioridad absoluta."
+        }
+      ];
+    }
+    // Default English
+    return [
+      {
+        title: "Minimum 3,000 Flight Hours",
+        desc: "Our pilots are veteran captains with deep experience flying high-end corporate transfers."
+      },
+      {
+        title: "Frequent Simulator Assessments",
+        desc: "Recurrent multi-engine and bad-weather flight simulator checkups twice per year."
+      },
+      {
+        title: "Localized Airspace Experts",
+        desc: "Extensive knowledge of specific approach vectors for Monaco Helipad Fontvieille, Malta and Gozo, and Balearic islands."
+      },
+      {
+        title: "Elite Maintenance & Zero-Risk Policy",
+        desc: "FlyPerceval applies the utmost care and rigorous maintenance standards. No risks are taken—redundancy and anticipation are our absolute priority."
+      }
+    ];
+  })();
+
+  const alertText = (() => {
+    if (isFr) {
+      return {
+        title: "Information de paiement & Protection",
+        desc: "FlyPerceval ne vous demandera jamais de paiement ou de transfert d'argent avant notre rencontre sur le site de départ. Cela est mis en place pour limiter les arnaques. Vous pourrez régler votre vol par carte bancaire, espèces ou virement instantané uniquement en direct lors de notre rencontre. Nous demandons simplement une empreinte bancaire sécurisée pour confirmer votre réservation ; en cas d'absence non signalée (no-show), des frais seront prélevés."
+      };
+    }
+    if (isDe) {
+      return {
+        title: "Zahlungsinformationen & Sicherheit",
+        desc: "FlyPerceval wird Sie niemals vor unserem persönlichen Treffen vor Ort um eine Zahlung oder Geldüberweisung bitten. Dies dient dem Schutz vor Betrug. Sie können Ihren Flug per Kreditkarte, bar oder per Sofortüberweisung ausschließlich direkt vor Ort bezahlen, wenn wir uns treffen. Zur Sicherung Ihrer Buchung benötigen wir lediglich eine sichere Kreditkarten-Präautorisierung; im Falle eines unentschuldigten Nichterscheinens (No-Show) wird eine Gebühr erhoben."
+      };
+    }
+    if (isNl) {
+      return {
+        title: "Betalingsinformatie & Beveiliging",
+        desc: "FlyPerceval zal u nooit om een betaling of geldovermaking vragen voordat we elkaar persoonlijk ontmoeten op de locatie. Dit is ingesteld om oplichting te voorkomen. U kunt uw vlucht betalen met creditcard, contant geld of directe bankoverschrijving uitsluitend direct ter plaatse wanneer we elkaar ontmoeten. Om uw reservering te garanderen, vragen we alleen om een beveiligde creditcard-pre-autorisatie; in het geval van een no-show zonder voorafgaande kennisgeving, worden er no-show kosten in rekening gebracht."
+      };
+    }
+    if (isEs) {
+      return {
+        title: "Información de Pago y Seguridad",
+        desc: "FlyPerceval nunca le solicitará ningún pago o transferencia de dinero antes de conocernos en persona en el lugar. Esto se hace para limitar las estafas. Podrá pagar por su vuelo con tarjeta de crédito, efectivo o transferencia bancaria instantánea únicamente en directo cuando nos encontremos. Simplemente solicitamos una preautorización segura de tarjeta de crédito para confirmar su reserva; en caso de no presentarse sin previo aviso (no-show), se aplicará un cargo por incomparecencia."
+      };
+    }
+    // Default English
+    return {
+      title: "Payment Information & Protection",
+      desc: "FlyPerceval will never ask for any payment or money transfer before meeting you in person on-site. This is implemented to prevent scams. You can pay for your flight by credit card, cash, or instant bank transfer exclusively in person when we meet. We simply require a secure credit card pre-authorization to confirm your booking; in the event of a no-show without prior notice, a no-show fee will be charged."
+    };
+  })();
+
   return (
-    <section id="safety" className="py-24 bg-white border-b border-stone-200/60 relative overflow-hidden">
+    <section id="safety" className="pt-24 pb-0 bg-white border-b border-stone-200/60 relative overflow-hidden">
       {/* Visual background accents */}
       <div className="absolute left-0 bottom-0 w-80 h-80 bg-red-500/5 rounded-full blur-3xl pointer-events-none" />
 
@@ -94,36 +228,41 @@ export default function Safety({ t }: SafetyProps) {
                 {t.safetyPilotsDesc}
               </p>
 
-              <div className="space-y-4" id="crew-features-list">
-                <div className="flex gap-3 items-start">
-                  <div className="w-1.5 h-1.5 bg-black rounded-full mt-1.5 shrink-0" />
-                  <div>
-                    <strong className="text-black font-sans font-semibold text-sm block">Minimum 3,000 Flight Hours</strong>
-                    <span className="text-xs text-stone-500 block font-sans font-light mt-0.5 leading-relaxed">Our pilots are veteran captains with deep experience flying high-end corporate transfers.</span>
+              <div className="space-y-5" id="crew-features-list">
+                {crewFeatures.map((feat, index) => (
+                  <div key={index} className="flex gap-3 items-start">
+                    <div className="w-1.5 h-1.5 bg-black rounded-full mt-1.5 shrink-0" />
+                    <div>
+                      <strong className="text-black font-sans font-semibold text-sm block">{feat.title}</strong>
+                      <span className="text-xs text-stone-500 block font-sans font-light mt-0.5 leading-relaxed">{feat.desc}</span>
+                    </div>
                   </div>
-                </div>
-
-                <div className="flex gap-3 items-start">
-                  <div className="w-1.5 h-1.5 bg-black rounded-full mt-1.5 shrink-0" />
-                  <div>
-                    <strong className="text-black font-sans font-semibold text-sm block">Frequent Simulator Assessments</strong>
-                    <span className="text-xs text-stone-500 block font-sans font-light mt-0.5 leading-relaxed">Recurrent multi-engine and bad-weather flight simulator checkups twice per year.</span>
-                  </div>
-                </div>
-
-                <div className="flex gap-3 items-start">
-                  <div className="w-1.5 h-1.5 bg-black rounded-full mt-1.5 shrink-0" />
-                  <div>
-                    <strong className="text-black font-sans font-semibold text-sm block">Localized Airspace Experts</strong>
-                    <span className="text-xs text-stone-500 block font-sans font-light mt-0.5 leading-relaxed">Extensive knowledge of specific approach vectors for Monaco Helipad Fontvieille, Malta and Gozo, and Balearic islands.</span>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
 
         </div>
 
+      </div>
+
+      {/* Full-width Black Warning Alert Banner */}
+      <div className="w-full bg-stone-950 text-white py-12 mt-20 border-t border-stone-900" id="safety-payment-warning">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-stone-900/40 border border-stone-800 rounded p-6 sm:p-8 flex flex-col md:flex-row gap-6 items-start">
+            <div className="p-3 border border-white/20 rounded text-white shrink-0">
+              <AlertTriangle className="w-6 h-6" />
+            </div>
+            <div className="space-y-2">
+              <h4 className="font-serif text-lg font-normal text-white">
+                {alertText.title}
+              </h4>
+              <p className="text-sm font-light text-white leading-relaxed max-w-4xl">
+                {alertText.desc}
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

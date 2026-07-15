@@ -29,7 +29,7 @@ export default function Fleet({ t, onSelectAircraft }: FleetProps) {
           {aircraftData.map((aircraft: AircraftInfo) => (
             <div
               key={aircraft.id}
-              className="bg-[#fafaf9] border border-stone-200 rounded overflow-hidden group hover:border-black shadow-sm transition-all duration-300 flex flex-col h-full"
+              className="bg-[#fafaf9] border border-stone-200 rounded overflow-hidden group hover:border-black transition-all duration-300 flex flex-col h-full"
               id={`aircraft-card-${aircraft.id}`}
             >
               {/* Image box */}

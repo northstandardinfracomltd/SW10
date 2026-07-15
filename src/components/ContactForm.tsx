@@ -232,7 +232,7 @@ export default function ContactForm({ t, selectedAircraft, onClearSelectedAircra
                         value={formData.name}
                         onChange={handleChange}
                         placeholder="e.g. Jean Dupont"
-                        className="w-full bg-white border border-stone-200 hover:border-stone-300 focus:border-stone-400 rounded px-4 py-3 text-sm text-stone-900 focus:outline-none transition-colors font-sans font-light shadow-inner"
+                        className="w-full bg-white border border-stone-200 hover:border-stone-300 focus:border-stone-400 rounded px-4 py-3 text-sm text-stone-900 focus:outline-none transition-colors font-sans font-light"
                       />
                     </div>
 
@@ -249,7 +249,7 @@ export default function ContactForm({ t, selectedAircraft, onClearSelectedAircra
                         value={formData.email}
                         onChange={handleChange}
                         placeholder="e.g. contact@domain.com"
-                        className="w-full bg-white border border-stone-200 hover:border-stone-300 focus:border-stone-400 rounded px-4 py-3 text-sm text-stone-900 focus:outline-none transition-colors font-sans font-light shadow-inner"
+                        className="w-full bg-white border border-stone-200 hover:border-stone-300 focus:border-stone-400 rounded px-4 py-3 text-sm text-stone-900 focus:outline-none transition-colors font-sans font-light"
                       />
                     </div>
                   </div>
@@ -268,7 +268,7 @@ export default function ContactForm({ t, selectedAircraft, onClearSelectedAircra
                         value={formData.route}
                         onChange={handleChange}
                         placeholder="e.g. Ibiza Airport to Monaco Helipad"
-                        className="w-full bg-white border border-stone-200 hover:border-stone-300 focus:border-stone-400 rounded px-4 py-3 text-sm text-stone-900 focus:outline-none transition-colors font-sans font-light shadow-inner"
+                        className="w-full bg-white border border-stone-200 hover:border-stone-300 focus:border-stone-400 rounded px-4 py-3 text-sm text-stone-900 focus:outline-none transition-colors font-sans font-light"
                       />
                     </div>
 
@@ -282,7 +282,7 @@ export default function ContactForm({ t, selectedAircraft, onClearSelectedAircra
                         name="aircraft"
                         value={formData.aircraft}
                         onChange={handleChange}
-                        className="w-full bg-white border border-stone-200 hover:border-stone-300 focus:border-stone-400 rounded px-4 py-3 text-sm text-stone-900 focus:outline-none transition-colors font-sans font-light shadow-inner"
+                        className="w-full bg-white border border-stone-200 hover:border-stone-300 focus:border-stone-400 rounded px-4 py-3 text-sm text-stone-900 focus:outline-none transition-colors font-sans font-light"
                       >
                         <option value="">-- Select Aircraft Model --</option>
                         <option value="Airbus H135">Airbus H135 (Helicopter)</option>
@@ -307,14 +307,14 @@ export default function ContactForm({ t, selectedAircraft, onClearSelectedAircra
                           name="date"
                           value={formData.date}
                           onChange={handleChange}
-                          className="w-full bg-white border border-stone-200 hover:border-stone-300 focus:border-stone-400 rounded px-3 py-3 text-sm text-stone-900 focus:outline-none transition-colors font-mono font-light shadow-inner"
+                          className="w-full bg-white border border-stone-200 hover:border-stone-300 focus:border-stone-400 rounded px-3 py-3 text-sm text-stone-900 focus:outline-none transition-colors font-mono font-light"
                         />
                         <select
                           id="timeSlot"
                           name="timeSlot"
                           value={formData.timeSlot}
                           onChange={handleChange}
-                          className="w-full bg-white border border-stone-200 hover:border-stone-300 focus:border-stone-400 rounded px-3 py-3 text-sm text-stone-900 focus:outline-none transition-colors font-sans font-light shadow-inner text-xs sm:text-sm"
+                          className="w-full bg-white border border-stone-200 hover:border-stone-300 focus:border-stone-400 rounded px-3 py-3 text-sm text-stone-900 focus:outline-none transition-colors font-sans font-light text-xs sm:text-sm"
                         >
                           <option value="">-- {timeSlotPlaceholder} --</option>
                           {timeSlots.map((slot) => (
@@ -336,7 +336,7 @@ export default function ContactForm({ t, selectedAircraft, onClearSelectedAircra
                         name="passengers"
                         value={formData.passengers}
                         onChange={handleChange}
-                        className="w-full bg-white border border-stone-200 hover:border-stone-300 focus:border-stone-400 rounded px-4 py-3 text-sm text-stone-900 focus:outline-none transition-colors font-sans font-light shadow-inner"
+                        className="w-full bg-white border border-stone-200 hover:border-stone-300 focus:border-stone-400 rounded px-4 py-3 text-sm text-stone-900 focus:outline-none transition-colors font-sans font-light"
                       >
                         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, '10+'].map((num) => (
                           <option key={num} value={num}>
@@ -348,7 +348,7 @@ export default function ContactForm({ t, selectedAircraft, onClearSelectedAircra
                   </div>
 
                   {/* 2-Pilot Crew Apple-style Toggle */}
-                  <div className="bg-white border border-stone-200 rounded p-4 flex items-center justify-between shadow-sm">
+                  <div className="bg-white border border-stone-200 rounded p-4 flex items-center justify-between">
                     <label htmlFor="twoPilots-toggle" className="text-xs font-sans font-light text-stone-500 cursor-pointer select-none">
                       {t.contactFormTwoPilots}
                     </label>
@@ -361,7 +361,7 @@ export default function ContactForm({ t, selectedAircraft, onClearSelectedAircra
                       }`}
                     >
                       <span
-                        className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
+                        className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white border border-stone-200/50 ring-0 transition duration-200 ease-in-out ${
                           formData.twoPilots ? 'translate-x-5' : 'translate-x-0'
                         }`}
                       />
@@ -380,7 +380,7 @@ export default function ContactForm({ t, selectedAircraft, onClearSelectedAircra
                       value={formData.notes}
                       onChange={handleChange}
                       placeholder="e.g. Luggage sizes, medical details, catering preferences, or ground transfer needs..."
-                      className="w-full bg-white border border-stone-200 hover:border-stone-300 focus:border-stone-400 rounded px-4 py-3 text-sm text-stone-900 focus:outline-none transition-colors font-sans font-light shadow-inner"
+                      className="w-full bg-white border border-stone-200 hover:border-stone-300 focus:border-stone-400 rounded px-4 py-3 text-sm text-stone-900 focus:outline-none transition-colors font-sans font-light"
                     />
                   </div>
 

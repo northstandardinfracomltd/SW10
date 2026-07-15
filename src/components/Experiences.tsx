@@ -37,6 +37,16 @@ export default function Experiences({ t, currentLang }: ExperiencesProps) {
     }
   };
 
+  const getVanderpoelName = () => {
+    switch (currentLang) {
+      case 'fr': return "Monsieur Mathieu van der Poel.";
+      case 'de': return "Herr Mathieu van der Poel.";
+      case 'nl': return "De heer Mathieu van der Poel.";
+      case 'es': return "Señor Mathieu van der Poel.";
+      default: return "Mr. Mathieu van der Poel.";
+    }
+  };
+
   const experiences = [
     {
       image: "https://civilprom.s3.eu-north-1.amazonaws.com/FlyPerceval1.jpg",
@@ -49,6 +59,10 @@ export default function Experiences({ t, currentLang }: ExperiencesProps) {
     {
       image: "https://civilprom.s3.eu-north-1.amazonaws.com/FlyPerceval3.jpg",
       name: getGarritsenName()
+    },
+    {
+      image: "https://civilprom.s3.eu-north-1.amazonaws.com/MCDP.jpg",
+      name: getVanderpoelName()
     }
   ];
 
@@ -63,8 +77,8 @@ export default function Experiences({ t, currentLang }: ExperiencesProps) {
           </h2>
         </div>
 
-        {/* 3-Column Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6" id="experiences-grid">
+        {/* 4-Column Grid on desktop */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="experiences-grid">
           {experiences.map((item, idx) => (
             <div 
               key={idx} 

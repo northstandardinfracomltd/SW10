@@ -20,6 +20,27 @@ export default function Hero({ t }: HeroProps) {
     }
   };
 
+  const isFr = t.navContact === "Nous Contacter";
+  const isDe = t.navContact === "Flug anfragen";
+  const isNl = t.navContact === "Aanvraag indienen";
+  const isEs = t.navContact === "Solicitud de Vuelo";
+
+  const getBadgeText = () => {
+    if (isFr) {
+      return "Le choix des familles, athlètes et artistes depuis 2003";
+    }
+    if (isDe) {
+      return "Die Wahl von Familien, Athleten und Künstlern seit 2003";
+    }
+    if (isNl) {
+      return "De keuze van gezinnen, atleten en artiesten sinds 2003";
+    }
+    if (isEs) {
+      return "La elección de familias, atletas y artistas desde 2003";
+    }
+    return "The choice of families, athletes, and artists since 2003";
+  };
+
   return (
     <section 
       id="hero" 
@@ -46,7 +67,18 @@ export default function Hero({ t }: HeroProps) {
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 sm:py-20 text-left w-full">
         <div className="max-w-3xl">
-          {/* Tagline / SEO Hook */}
+          {/* Gelule / Label */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0 }}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 mb-6 rounded-full bg-black/5 border border-black/10 text-stone-800 text-[11px] sm:text-xs tracking-wide uppercase font-sans font-medium"
+            id="hero-label-badge"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-black shrink-0" />
+            <span>{getBadgeText()}</span>
+          </motion.div>
+
           {/* Title - Luxurious Serif Styling */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}

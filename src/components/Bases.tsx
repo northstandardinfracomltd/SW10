@@ -53,7 +53,7 @@ export default function Bases({ t }: BasesProps) {
           {basesData.map((base: BaseInfo) => (
             <div
               key={base.id}
-              className="bg-white border border-stone-200 rounded overflow-hidden group hover:border-black shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full"
+              className="bg-white border border-stone-200 rounded overflow-hidden group hover:border-black transition-all duration-300 flex flex-col h-full"
               id={`base-card-${base.id}`}
             >
               {/* Image Frame */}
